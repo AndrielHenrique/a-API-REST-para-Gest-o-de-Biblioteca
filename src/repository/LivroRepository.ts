@@ -36,7 +36,7 @@ export class LivrosRepository{
     }
 
     async insertProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string) :Promise<Product>{
-        const query = "INSERT INTO biblioteca.vendas (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ? ,? ,? ,?)" ;
+        const query = "INSERT INTO biblioteca.vendas (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ? ,? ,? ,?, ?)" ;
 
         try {
             const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher]);

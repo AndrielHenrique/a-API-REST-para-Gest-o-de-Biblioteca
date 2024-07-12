@@ -7,10 +7,10 @@ const PORT = 3000;
 
 app.use(express.json());
 
-app.post("/api/product", cadastrarLivro)
-app.put("/api/product", atualizarLivro)
-app.delete("/api/product", deletarLivro)
-app.get("/api/product", filtrarLivro)
-app.get("/api/products", listarTodosLivro)
+app.post("/api/books", cadastrarLivro)
+app.get("/api/books/", listarTodosLivro)
+app.get("/api/books/:id", filtrarLivro)
+app.put("/api/books/:id", atualizarLivro)
+app.delete("/api/books/:id", deletarLivro)
 
 app.listen(PORT, ()=> console.log("API online na porta: " + PORT));
