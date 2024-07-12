@@ -33,7 +33,7 @@ export class ProductService{
             throw new Error("Informações incompletas");
         }
 
-        const produto =  await this.productRepository.deleteProduct(id,name, price);
+        const produto =  await this.productRepository.deleteProduct(title, author, publishedDate, isbn, pages, language, publisher, id);
         console.log("Service - Delete ", produto);
         return produto;
     }
