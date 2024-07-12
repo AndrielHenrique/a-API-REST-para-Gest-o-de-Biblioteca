@@ -6,13 +6,25 @@ export class ProductRepository{
     constructor(){
         this.createTable();
     }
-
+/* title :  string ;
+    author :  string ;
+    publishedDate :  string ;
+    isbn :  string ;
+    pages :  number ;
+    language :  string ;
+    publisher :  string ;
+    id : number;
+    */
     private async createTable() {
         const query = `
         CREATE TABLE IF NOT EXISTS Vendas.Product (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            price DECIMAL(10,2) NOT NULL
+            author VARCHAR(255) NOT NULL,
+           publishedDate VARCHAR(255) NOT NULL,
+           isbn VARCHAR(255) NOT NULL,
+           pages int,
+           language VARCHAR(255) NOT NULL,
+           publisher VARCHAR(255) NOT NULL
         )`;
 
         try {
@@ -23,13 +35,13 @@ export class ProductRepository{
         }
     }
 
-    async insertProduct(name: string, price: number) :Promise<Product>{
-        const query = "INSERT INTO vendas.Product (name, price) VALUES (?, ?)" ;
+    async insertProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string) :Promise<Product>{
+        const query = "INSERT INTO vendas.Product (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ? ,? ,? ,?)" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [name, price]);
+            const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher]);
             console.log('Produto inserido com sucesso, ID: ', resultado.insertId);
-            const product = new Product(resultado.insertId,name, price);
+            const product = new Product(title, author, publishedDate, isbn, pages, language, publisher, resultado.insertId);
             return new Promise<Product>((resolve)=>{
                 resolve(product);
             })
