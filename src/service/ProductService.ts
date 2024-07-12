@@ -6,23 +6,23 @@ export class ProductService{
     productRepository: ProductRepository = new ProductRepository();
 
     async cadastrarProduto(produtoData: any): Promise<Product> {
-        const { name, price } = produtoData;
-        if(!name || !price ){
+        const { title, author, publishedDate, isbn, pages, language, publisher } = produtoData;
+        if(!title || !author || !publishedDate || !isbn ||!pages || !language || !publisher ){
             throw new Error("Informações incompletas");
         }
 
-        const novoProduto =  await this.productRepository.insertProduct(name, price);
+        const novoProduto =  await this.productRepository.insertProduct(title, author, publishedDate, isbn, pages, language, publisher);
         console.log("Service - Insert ", novoProduto);
         return novoProduto;
     }
 
     async atualizarProduto(produtoData: any): Promise<Product> {
-        const { id, name, price } = produtoData;
-        if(!name || !price || !id ){
+        const { title, author, publishedDate, isbn, pages, language, publisher, id } = produtoData;
+        if(!title || !author || !publishedDate || !isbn ||!pages || !language || !publisher|| !id ){
             throw new Error("Informações incompletas");
         }
 
-        const produto =  await this.productRepository.updateProduct(id,name, price);
+        const produto =  await this.productRepository.updateProduct(title, author, publishedDate, isbn, pages, language, publisher, id);
         console.log("Service - Update ", produto);
         return produto;
     }

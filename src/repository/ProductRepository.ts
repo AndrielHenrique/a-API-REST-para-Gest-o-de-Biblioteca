@@ -51,13 +51,13 @@ export class ProductRepository{
         }
     }
 
-    async updateProduct(id: number, name: string, price: number) :Promise<Product>{
+    async updateProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string, id: number) :Promise<Product>{
         const query = "UPDATE vendas.product set name = ?, price = ? where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [name, price, id]);
+            const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher, id]);
             console.log('Produto atualizado com sucesso, ID: ', resultado);
-            const product = new Product(id, name, price);
+            const product = new Product(title, author, publishedDate, isbn, pages, language, publisher, id);
             return new Promise<Product>((resolve)=>{
                 resolve(product);
             })
@@ -67,13 +67,13 @@ export class ProductRepository{
         }
     }
 
-    async deleteProduct(id: number, name:string, price:number) :Promise<Product>{
+    async deleteProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string, id: number) :Promise<Product>{
         const query = "DELETE FROM vendas.product where id = ?;" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
             console.log('Produto deletado com sucesso, ID: ', resultado);
-            const product = new Product(id, name, price);
+            const product = new Product(title, author, publishedDate, isbn, pages, language, publisher, id);
             return new Promise<Product>((resolve)=>{
                 resolve(product);
             })
