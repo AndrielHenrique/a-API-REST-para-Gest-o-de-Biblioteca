@@ -1,5 +1,4 @@
 export class Product{
-   ;
     title :  string ;
     author :  string ;
     publishedDate :  string ;
@@ -12,7 +11,7 @@ export class Product{
     constructor(title?:  string, author?:  string ,publishedDate?:  string ,isbn?:  string ,pages?:  number ,language?:  string ,publisher?:  string ,id? : number){
         this.title = title || '';
         this.author = author || '',
-        this.publishedDate = publishedDate|| '',
+        this.publishedDate = publishedDate || '',
         this.isbn = isbn || '',
         this.pages = pages || 0;
         this.language = language || '',

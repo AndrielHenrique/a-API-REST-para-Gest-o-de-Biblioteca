@@ -1,7 +1,7 @@
 import { executarComandoSQL } from "../database/mysql";
-import { Product } from "../model/Product";
+import { Product } from "../model/Livros";
 
-export class ProductRepository{
+export class LivrosRepository{
 
     constructor(){
         this.createTable();
@@ -17,10 +17,10 @@ export class ProductRepository{
     */
     private async createTable() {
         const query = `
-        CREATE TABLE IF NOT EXISTS Vendas.Product (
+        CREATE TABLE IF NOT EXISTS biblioteca.vendas (
             id INT AUTO_INCREMENT PRIMARY KEY,
             author VARCHAR(255) NOT NULL,
-           publishedDate VARCHAR(255) NOT NULL,
+           publishedDate date NOT NULL,
            isbn VARCHAR(255) NOT NULL,
            pages int,
            language VARCHAR(255) NOT NULL,
@@ -36,7 +36,7 @@ export class ProductRepository{
     }
 
     async insertProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string) :Promise<Product>{
-        const query = "INSERT INTO vendas.Product (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ? ,? ,? ,?)" ;
+        const query = "INSERT INTO biblioteca.vendas (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ? ,? ,? ,?)" ;
 
         try {
             const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher]);
@@ -52,7 +52,7 @@ export class ProductRepository{
     }
 
     async updateProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string, id: number) :Promise<Product>{
-        const query = "UPDATE vendas.product set name = ?, price = ? where id = ?;" ;
+        const query = "UPDATE biblioteca.vendas set title = ?, author = ?, publishedDate = ?, isbn = ?, pages = ?, language = ?, publisher = ? where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher, id]);
@@ -68,7 +68,7 @@ export class ProductRepository{
     }
 
     async deleteProduct(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher: string, id: number) :Promise<Product>{
-        const query = "DELETE FROM vendas.product where id = ?;" ;
+        const query = "DELETE FROM biblioteca.vendas where id = ?;" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
@@ -84,7 +84,7 @@ export class ProductRepository{
     }
 
     async filterProduct(id: number) :Promise<Product>{
-        const query = "SELECT * FROM vendas.product where id = ?" ;
+        const query = "SELECT * FROM biblioteca.vendas where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
@@ -99,7 +99,7 @@ export class ProductRepository{
     }
 
     async filterAllProduct() :Promise<Product[]>{
-        const query = "SELECT * FROM vendas.product" ;
+        const query = "SELECT * FROM biblioteca.vendas" ;
 
         try {
             const resultado = await executarComandoSQL(query, []);
