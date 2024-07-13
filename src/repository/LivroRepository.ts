@@ -83,6 +83,21 @@ export class LivrosRepository{
         }
     }
 
+    async filtrarLivroPorISBN(isbn: number) :Promise<Product>{
+        const query = "SELECT * FROM biblioteca.vendas where id = ?" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [isbn]);
+            console.log('Produto localizado com sucesso, ID: ', resultado);
+            return new Promise<Product>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar o produto de ID ${isbn} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
     async filterProduct(id: number) :Promise<Product>{
         const query = "SELECT * FROM biblioteca.vendas where id = ?" ;
 
