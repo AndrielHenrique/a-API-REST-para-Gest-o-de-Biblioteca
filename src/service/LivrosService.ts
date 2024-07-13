@@ -10,7 +10,8 @@ export class LivrosService{
         if(!title || !author || !publishedDate || !isbn ||!pages || !language || !publisher ){
             throw new Error("Informações incompletas");
         }
-        if(await this.livrosRepository.filtrarLivroPorISBN(isbn)){
+        const verificiarISBN = await this.livrosRepository.filtrarLivroPorISBN(isbn);
+        if(!verificiarISBN){
             throw new Error("O livro já existe!");
         }
         const novoProduto =  await this.livrosRepository.insertProduct(title, author, publishedDate, isbn, pages, language, publisher);
@@ -23,6 +24,10 @@ export class LivrosService{
         if(!title || !author || !publishedDate || !isbn ||!pages || !language || !publisher|| !id ){
             throw new Error("Informações incompletas");
         }
+        const verificarID = await this.livrosRepository.filterProduct(id);
+        if(!verificarID){
+            throw new Error("Erro ao encontrar esse livro!");
+        }
 
         const produto =  await this.livrosRepository.updateProduct(title, author, publishedDate, isbn, pages, language, publisher, id);
         console.log("Service - Update ", produto);
@@ -33,6 +38,11 @@ export class LivrosService{
         const { title, author, publishedDate, isbn, pages, language, publisher, id } = produtoData;
         if(!title || !author || !publishedDate || !isbn ||!pages || !language || !publisher|| !id ){
             throw new Error("Informações incompletas");
+        }
+
+        const verificarID = await this.livrosRepository.filterProduct(id);
+        if(!verificarID){
+            throw new Error("Erro ao encontrar esse livro!");
         }
 
         const produto =  await this.livrosRepository.deleteProduct(title, author, publishedDate, isbn, pages, language, publisher, id);
@@ -59,7 +69,7 @@ export class LivrosService{
 
         const produto =  await this.livrosRepository.filterProduct(id);
         console.log("Service - Filtrar", produto);
-        
+
         return produto;
     }
 
